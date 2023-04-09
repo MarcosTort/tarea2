@@ -28,10 +28,10 @@ void agregarEnAgendaLS(TAgendaLS &agenda, TEvento evento)
             aux->sig = agenda->sig;
             agenda->sig = aux;
         }
-        else if (compararTFechas(fechaTEvento(evento), fechaTEvento(agenda->evento)) == 1)
+        else if (compararTFechas(fechaTEvento(evento), fechaTEvento(agenda->evento)) == -1)
         {
             TAgendaLS aux = agenda;
-            while (aux->sig != NULL && compararTFechas(fechaTEvento(evento), fechaTEvento(aux->sig->evento)) == -1)
+            while (aux->sig != NULL && compararTFechas(fechaTEvento(evento), fechaTEvento(aux->sig->evento)) == 1)
             {
                 aux = aux->sig;
             }
