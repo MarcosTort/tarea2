@@ -25,8 +25,8 @@ void agregarEnAgendaLS(TAgendaLS &agenda, TEvento evento)
         {
             TAgendaLS aux = new rep_agendaLS;
             aux->evento = evento;
-            aux->sig = agenda;
-            agenda = aux;
+            aux->sig = agenda->sig;
+            agenda->sig = aux;
         }
         else if (compararTFechas(fechaTEvento(evento), fechaTEvento(agenda->evento)) == 1)
         {
