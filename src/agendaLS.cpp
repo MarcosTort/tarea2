@@ -21,17 +21,17 @@ void agregarEnAgendaLS(TAgendaLS &agenda, TEvento evento)
     }
     else
     {
-        if(compararTFechas(fechaTEvento(evento), fechaTEvento(agenda->evento)) == 0)
+        if (compararTFechas(fechaTEvento(evento), fechaTEvento(agenda->evento)) == 0)
         {
             TAgendaLS aux = new rep_agendaLS;
             aux->evento = evento;
             aux->sig = agenda;
             agenda = aux;
         }
-        else if(compararTFechas(fechaTEvento(evento), fechaTEvento(agenda->evento)) == 1)
+        else if (compararTFechas(fechaTEvento(evento), fechaTEvento(agenda->evento)) == 1)
         {
             TAgendaLS aux = agenda;
-            while(aux->sig != NULL && compararTFechas(fechaTEvento(evento), fechaTEvento(aux->sig->evento)) == -1)
+            while (aux->sig != NULL && compararTFechas(fechaTEvento(evento), fechaTEvento(aux->sig->evento)) == -1)
             {
                 aux = aux->sig;
             }
@@ -40,8 +40,9 @@ void agregarEnAgendaLS(TAgendaLS &agenda, TEvento evento)
             nuevo->sig = aux->sig;
             aux->sig = nuevo;
         }
-        else{
-            TAgendaLS nuevoInicio  = new rep_agendaLS;
+        else
+        {
+            TAgendaLS nuevoInicio = new rep_agendaLS;
             nuevoInicio->evento = evento;
             nuevoInicio->sig = agenda;
             agenda = nuevoInicio;
@@ -74,12 +75,12 @@ void liberarAgendaLS(TAgendaLS &agenda)
 
 bool esVaciaAgendaLS(TAgendaLS agenda)
 {
-    return  agenda == NULL;
+    return agenda == NULL;
 }
 
 TAgendaLS copiarAgendaLS(TAgendaLS agenda)
 {
-   
+
     TAgendaLS copia = crearAgendaLS();
     TAgendaLS aux = agenda;
     while (aux != NULL)
@@ -92,7 +93,7 @@ TAgendaLS copiarAgendaLS(TAgendaLS agenda)
 
 bool estaEnAgendaLS(TAgendaLS agenda, int id)
 {
-    
+
     TAgendaLS aux = agenda;
     while (aux != NULL)
     {
@@ -119,31 +120,24 @@ TEvento obtenerDeAgendaLS(TAgendaLS agenda, int id)
     return aux->evento;
 }
 
-
-
 void posponerEnAgendaLS(TAgendaLS &agenda, int id, nat n)
 {
     TAgendaLS aux = agenda;
     TEvento evento = NULL;
-    while (aux != NULL)
+    while (aux != NULL && idTEvento(aux->evento) == id)
     {
-        // la lista 
-        if (idTEvento(aux->evento) == id)
-        {
-            evento = aux->evento;
-            break;
-        }
+        // la lista
+
         aux = aux->sig;
     };
+    evento = aux->evento;
     TEvento nuevoEvento = copiarTEvento(evento);
     posponerTEvento(nuevoEvento, n);
     removerDeAgendaLS(agenda, id);
-
-    
 }
 
 void imprimirEventosFechaLS(TAgendaLS agenda, TFecha fecha)
-{  
+{
     TAgendaLS aux = agenda;
     while (aux != NULL)
     {
