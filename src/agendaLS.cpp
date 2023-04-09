@@ -123,18 +123,17 @@ TEvento obtenerDeAgendaLS(TAgendaLS agenda, int id)
 void posponerEnAgendaLS(TAgendaLS &agenda, int id, nat n)
 {
     TAgendaLS aux = agenda;
-    TEvento evento = NULL;
-    while (aux->evento != NULL && idTEvento(aux->evento) == id)
+    TEvento eventoARemover = aux->evento;
+    while (idTEvento(aux->evento) != id)
     {
-        // la lista
-
         aux = aux->sig;
     };
-    evento = aux->evento;
-    TEvento nuevoEvento = copiarTEvento(evento);
+    eventoARemover = aux->evento;
+    TEvento nuevoEvento = copiarTEvento(eventoARemover);
+    removerDeAgendaLS(agenda, id);
     posponerTEvento(nuevoEvento, n);
     agregarEnAgendaLS(agenda, nuevoEvento);
-    removerDeAgendaLS(agenda, id);
+    
 }
 
 void imprimirEventosFechaLS(TAgendaLS agenda, TFecha fecha)
@@ -166,8 +165,21 @@ bool hayEventosFechaLS(TAgendaLS agenda, TFecha fecha)
 
 void removerDeAgendaLS(TAgendaLS &agenda, int id)
 {
+
+    if (agenda == NULL) { // Si la lista está vacía, no se hace nada
+        return;
+    }
+
+    if (idTEvento(agenda->evento) == id) { // Si el evento está en el primer nodo
+        TAgendaLS aux = agenda;
+        agenda = agenda->sig;
+        liberarTEvento(aux->evento);
+        delete aux;
+        return;
+    }
+
     TAgendaLS aux = agenda;
-    while (aux != NULL)
+    while (aux->sig != NULL)
     {
         if (idTEvento(aux->sig->evento) == id)
         {
@@ -175,7 +187,7 @@ void removerDeAgendaLS(TAgendaLS &agenda, int id)
             aux->sig = aux->sig->sig;
             liberarTEvento(aux2->evento);
             delete aux2;
-            break;
+            return;
         }
         aux = aux->sig;
     }
