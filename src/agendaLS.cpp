@@ -124,7 +124,7 @@ void posponerEnAgendaLS(TAgendaLS &agenda, int id, nat n)
 {
     TAgendaLS aux = agenda;
     TEvento evento = NULL;
-    while (aux != NULL && idTEvento(aux->evento) == id)
+    while (aux->evento != NULL && idTEvento(aux->evento) == id)
     {
         // la lista
 
@@ -133,6 +133,7 @@ void posponerEnAgendaLS(TAgendaLS &agenda, int id, nat n)
     evento = aux->evento;
     TEvento nuevoEvento = copiarTEvento(evento);
     posponerTEvento(nuevoEvento, n);
+    agregarEnAgendaLS(agenda, nuevoEvento);
     removerDeAgendaLS(agenda, id);
 }
 
