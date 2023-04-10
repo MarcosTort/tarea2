@@ -1,15 +1,26 @@
 #include "../include/persona.h"
 
 struct rep_persona {
-
+    nat id;
+    nat edad;
+    char nombre[100];
+    TAgendaLS agenda;
 };
 
 TPersona crearTPersona(nat id, nat edad, const char nombre[100], TAgendaLS agenda) {
-    return NULL;
+    
+    TPersona persona = new rep_persona;
+    persona->id = id;
+    persona->edad = edad;
+    strcpy(persona->nombre, nombre);
+    persona->agenda = agenda;
+    return persona;
+    
 }
 
 void liberarTPersona(TPersona &persona) {
-
+    liberarAgendaLS(persona->agenda);
+    delete persona;
 }
 
 //Imprime a la persona utilizando printf e imprimeAgendaLS
@@ -18,41 +29,42 @@ void imprimirTPersona(TPersona persona) {
 }
 
 nat idTPersona(TPersona persona) {
-    return 0;
+    return persona->id;
 }
 
 nat edadTPersona(TPersona persona) {
-    return 0;
+    return persona->edad;
 }
 
 char* nombreTPersona(TPersona persona) {
-    return NULL;
+    return persona->nombre;
 }
 
 TAgendaLS agendaTPersona(TPersona persona) {
-    return NULL;
+    return persona->agenda;
 }
 
 void agregarEventoATPersona(TPersona &persona, TEvento evento) {
-
+    agregarEnAgendaLS(persona->agenda, evento);
 }
 
 void posponerEventoEnTPersona(TPersona &persona, int id, nat n) {
-
+    posponerEnAgendaLS(persona->agenda, id, n);
 }
 
 void removerEventoDeTPersona(TPersona &persona, int id) {
-
+    removerDeAgendaLS(persona->agenda, id);
 }
 
 bool estaEnAgendaDeTPersona(TPersona persona, int id) {
-    return false;
+    return estaEnAgendaLS(persona->agenda, id);
 }
 
 TEvento obtenerDeAgendaDeTPersona(TPersona persona, int id) {
-    return NULL;
+    return obtenerDeAgendaLS(persona->agenda, id);
 }
 
 TPersona copiarTPersona(TPersona persona) {
-    return NULL;
+    TPersona copia = crearTPersona(persona->id, persona->edad, persona->nombre, copiarAgendaLS(persona->agenda));
+    return copia;
 }
