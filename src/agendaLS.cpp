@@ -13,42 +13,32 @@ TAgendaLS crearAgendaLS()
 
 void agregarEnAgendaLS(TAgendaLS &agenda, TEvento evento)
 {
-    if (agenda == NULL)
-    {
-        agenda = new rep_agendaLS;
-        agenda->evento = evento;
-        agenda->sig = NULL;
-    }
-    else
-    {
-        if (compararTFechas(fechaTEvento(evento), fechaTEvento(agenda->evento)) == 0)
-        {
-            TAgendaLS aux = new rep_agendaLS;
-            aux->evento = evento;
-            aux->sig = agenda->sig;
-            agenda->sig = aux;
+    TAgendaLS nuevoNodo = new rep_agendaLS;
+    nuevoNodo->evento = evento;
+    nuevoNodo->sig = NULL;
+
+    if (agenda == NULL) {
+        agenda = nuevoNodo;
+    } else {
+        TAgendaLS actual = agenda;
+        TAgendaLS anterior = NULL;
+        while (actual != NULL && compararTFechas(fechaTEvento(actual->evento), fechaTEvento(evento)) < 0) {
+            anterior = actual;
+            actual = actual->sig;
         }
-        else if (compararTFechas(fechaTEvento(evento), fechaTEvento(agenda->evento)) == 1)
-        {
-            TAgendaLS aux = agenda;
-            while (aux->sig != NULL && compararTFechas(fechaTEvento(evento), fechaTEvento(aux->sig->evento)) == -1)
-            {
-                aux = aux->sig;
-            }
-            TAgendaLS nuevo = new rep_agendaLS;
-            nuevo->evento = evento;
-            nuevo->sig = aux->sig;
-            aux->sig = nuevo;
-        }
-        else
-        {
-            TAgendaLS nuevoInicio = new rep_agendaLS;
-            nuevoInicio->evento = evento;
-            nuevoInicio->sig = agenda;
-            agenda = nuevoInicio;
+
+        if (anterior == NULL) {
+            nuevoNodo->sig = agenda;
+            agenda = nuevoNodo;
+        } else {
+            anterior->sig = nuevoNodo;
+            nuevoNodo->sig = actual;
         }
     }
 }
+
+
+
 
 void imprimirAgendaLS(TAgendaLS agenda)
 {
