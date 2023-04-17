@@ -45,6 +45,7 @@ void liberarTPersonasABB(TPersonasABB &personasABB)
     {
         liberarTPersonasABB(personasABB->izq);
         liberarTPersonasABB(personasABB->der);
+        liberarTPersona(personasABB->persona);
         delete personasABB;
         personasABB = NULL;
     }
