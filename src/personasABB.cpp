@@ -104,6 +104,7 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
                 personasABB = personasABB->der;
                 liberarTPersona(aux->persona);
                 delete aux;
+                aux = NULL;
             }
             else if (esVacioTPersonasABB(personasABB->der))
             {
@@ -111,6 +112,7 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
                 personasABB = personasABB->izq;
                 liberarTPersona(aux->persona);
                 delete aux;
+                aux = NULL;
             }
             else
             {
@@ -118,6 +120,7 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
                 personasABB = personasABB->der;
                 liberarTPersona(aux->persona);
                 delete aux;
+                aux = NULL;
             }
         }
         else if (id < idTPersona(personasABB->persona))
