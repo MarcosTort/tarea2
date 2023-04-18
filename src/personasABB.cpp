@@ -218,6 +218,42 @@ bool esPerfectoTPersonasABB(TPersonasABB personasABB)
     }
 }
 
+// TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
+// {
+//     if (esVacioTPersonasABB(personasABB))
+//     {
+//         return NULL;
+//     }
+//     else
+//     {
+//         TPersonasABB nueva = new rep_personasAbb;
+//         TPersonasABB mayoresIzq = mayoresTPersonasABB(personasABB->izq, edad);
+//         TPersonasABB mayoresDer = mayoresTPersonasABB(personasABB->der, edad);
+//         if (edadTPersona(personasABB->persona) > edad)
+//         {
+
+//             nueva->persona = copiarTPersona(personasABB->persona);
+//             nueva->der = mayoresIzq;
+//             nueva->izq = mayoresDer;
+//         }
+//         else
+//         {
+//             if (mayoresDer == NULL)
+//             {
+//                 nueva = mayoresIzq;
+//             }
+//             else if (mayoresIzq == NULL)
+//             {
+//                 nueva = mayoresDer;
+//             }
+//             else
+//             {
+//                 return NULL;
+//             }
+//         }
+//         return nueva;
+//     }
+// }
 TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
 {
     if (esVacioTPersonasABB(personasABB))
@@ -247,7 +283,7 @@ TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
             }
             else
             {
-                return NULL;
+                return nueva;
             }
         }
         return nueva;
