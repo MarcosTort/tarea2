@@ -92,13 +92,8 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
     {
         if (idTPersona(personasABB->persona) == id)
         {
-            if (esVacioTPersonasABB(personasABB->izq) && esVacioTPersonasABB(personasABB->der))
-            {
-                liberarTPersona(personasABB->persona);
-                delete personasABB;
-                personasABB = NULL;
-            }
-            else if (esVacioTPersonasABB(personasABB->izq))
+           
+            if (esVacioTPersonasABB(personasABB->izq))
             {
                 TPersonasABB aux = personasABB;
                 personasABB = personasABB->der;
