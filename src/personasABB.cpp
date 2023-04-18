@@ -256,5 +256,18 @@ TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
 
 TPersonasLDE aTPersonasLDE(TPersonasABB personasABB)
 {
-    return NULL;
+    if (esVacioTPersonasABB(personasABB))
+    {
+        return NULL;
+    }
+    else
+    {
+        TPersonasLDE nueva = crearTPersonasLDE();
+
+        nueva = aTPersonasLDE(personasABB->izq);
+        insertarTPersonasLDE(nueva, copiarTPersona(personasABB->persona), 1);
+        nueva = aTPersonasLDE(personasABB->der);
+
+        return nueva;
+    }
 }
