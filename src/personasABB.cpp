@@ -104,7 +104,6 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
                 personasABB = personasABB->der;
                 liberarTPersona(aux->persona);
                 delete aux;
-                aux = NULL;
             }
             else if (esVacioTPersonasABB(personasABB->der))
             {
@@ -112,15 +111,28 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
                 personasABB = personasABB->izq;
                 liberarTPersona(aux->persona);
                 delete aux;
-                aux = NULL;
+            }
+            else if (!esVacioTPersonasABB(personasABB->izq) && !esVacioTPersonasABB(personasABB->der))
+            {
+                TPersona maxId = maxIdPersona(personasABB->izq);
+                personasABB->persona = maxId;
+                removerTPersonasABB(personasABB->izq, idTPersona(maxId));
+            }
+            else if (!esVacioTPersonasABB(personasABB->izq))
+            {
+                TPersonasABB aux = personasABB;
+                personasABB = personasABB->izq;
+                liberarTPersona(aux->persona);
+                delete aux;
             }
             else
             {
                 TPersonasABB aux = personasABB;
                 personasABB = personasABB->der;
                 liberarTPersona(aux->persona);
+            
                 delete aux;
-                aux = NULL;
+                
             }
         }
         else if (id < idTPersona(personasABB->persona))
