@@ -88,6 +88,46 @@ TPersona maxIdPersona(TPersonasABB personasABB)
 
 void removerTPersonasABB(TPersonasABB &personasABB, nat id)
 {
+    if (!esVacioTPersonasABB(personasABB))
+    {
+        if (idTPersona(personasABB->persona) == id)
+        {
+            if (esVacioTPersonasABB(personasABB->izq) && esVacioTPersonasABB(personasABB->der))
+            {
+                liberarTPersona(personasABB->persona);
+                delete personasABB;
+                personasABB = NULL;
+            }
+            else if (esVacioTPersonasABB(personasABB->izq))
+            {
+                TPersonasABB aux = personasABB;
+                personasABB = personasABB->der;
+                liberarTPersona(aux->persona);
+                delete aux;
+            }
+            else if (esVacioTPersonasABB(personasABB->der))
+            {
+                TPersonasABB aux = personasABB;
+                personasABB = personasABB->izq;
+                liberarTPersona(aux->persona);
+                delete aux;
+            }
+            else
+            {
+                TPersona max = maxIdPersona(personasABB->izq);
+                personasABB->persona = max;
+                removerTPersonasABB(personasABB->izq, idTPersona(max));
+            }
+        }
+        else if (id < idTPersona(personasABB->persona))
+        {
+            removerTPersonasABB(personasABB->izq, id);
+        }
+        else
+        {
+            removerTPersonasABB(personasABB->der, id);
+        }
+    }
 }
 
 bool estaTPersonasABB(TPersonasABB personasABB, nat id)
