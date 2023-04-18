@@ -56,7 +56,10 @@ void imprimirTPersonasABB(TPersonasABB personasABB)
     if (!esVacioTPersonasABB(personasABB))
     {
         imprimirTPersonasABB(personasABB->izq);
-        imprimirTPersona(personasABB->persona);
+        if (personasABB->persona != NULL)
+        {
+            imprimirTPersona(personasABB->persona);
+        }
         imprimirTPersonasABB(personasABB->der);
     }
 }
@@ -96,14 +99,12 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
         {
             if (esVacioTPersonasABB(personasABB->izq) && esVacioTPersonasABB(personasABB->der))
             {
-                printf("Es hoja\n");
                 liberarTPersona(personasABB->persona);
                 delete personasABB;
                 personasABB = NULL;
             }
             else if (esVacioTPersonasABB(personasABB->izq))
             {
-                printf("Izquierdo vacio\n");
 
                 TPersonasABB aux = personasABB;
                 personasABB = personasABB->der;
@@ -112,7 +113,6 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
             }
             else if (esVacioTPersonasABB(personasABB->der))
             {
-                printf("derecho vacio\n");
 
                 TPersonasABB aux = personasABB;
                 personasABB = personasABB->izq;
@@ -121,10 +121,11 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
             }
             else
             {
-                printf("Tiene izq y der\n");
-
-                TPersona maxIzq = maxIdPersona(personasABB->izq);
-                personasABB->persona = maxIzq;
+                
+                TPersona maxIzq =  maxIdPersona(personasABB->izq);
+                
+                liberarTPersona(personasABB->persona);
+                personasABB->persona = copiarTPersona(maxIzq);
                 removerTPersonasABB(personasABB->izq, idTPersona(maxIzq));
             }
         }
