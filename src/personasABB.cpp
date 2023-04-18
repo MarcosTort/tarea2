@@ -79,15 +79,17 @@ TPersona maxIdPersona(TPersonasABB personasABB)
     {
         return NULL;
     }
-    if (esVacioTPersonasABB(personasABB->der))
+    else if (esVacioTPersonasABB(personasABB->der))
     {
         return personasABB->persona;
     }
-    return maxIdPersona(personasABB->der);
+    else
+        return maxIdPersona(personasABB->der);
 }
 
 void removerTPersonasABB(TPersonasABB &personasABB, nat id)
 {
+    printf("Removiendo");
     if (!esVacioTPersonasABB(personasABB))
     {
         if (idTPersona(personasABB->persona) == id)
@@ -114,13 +116,9 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
             }
             else
             {
-                TPersonasABB aux = personasABB;
-                personasABB->persona = maxIdPersona(personasABB->izq);
-                liberarTPersona(aux->persona);
-                delete aux;
-                removerTPersonasABB(personasABB->izq, idTPersona(personasABB->persona));
-            
-                
+                TPersona maxIzq = maxIdPersona(personasABB->izq);
+                personasABB->persona = maxIzq;
+                removerTPersonasABB(personasABB->izq, idTPersona(maxIzq));
             }
         }
         else if (id < idTPersona(personasABB->persona))
