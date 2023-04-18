@@ -89,19 +89,22 @@ TPersona maxIdPersona(TPersonasABB personasABB)
 
 void removerTPersonasABB(TPersonasABB &personasABB, nat id)
 {
-    printf("Removiendo");
+
     if (!esVacioTPersonasABB(personasABB))
     {
         if (idTPersona(personasABB->persona) == id)
         {
             if (esVacioTPersonasABB(personasABB->izq) && esVacioTPersonasABB(personasABB->der))
             {
+                printf("Es hoja\n");
                 liberarTPersona(personasABB->persona);
                 delete personasABB;
                 personasABB = NULL;
             }
             else if (esVacioTPersonasABB(personasABB->izq))
             {
+                printf("Izquierdo vacio\n");
+
                 TPersonasABB aux = personasABB;
                 personasABB = personasABB->der;
                 liberarTPersona(aux->persona);
@@ -109,6 +112,8 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
             }
             else if (esVacioTPersonasABB(personasABB->der))
             {
+                printf("derecho vacio\n");
+
                 TPersonasABB aux = personasABB;
                 personasABB = personasABB->izq;
                 liberarTPersona(aux->persona);
@@ -116,6 +121,8 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
             }
             else
             {
+                printf("Tiene izq y der\n");
+
                 TPersona maxIzq = maxIdPersona(personasABB->izq);
                 personasABB->persona = maxIzq;
                 removerTPersonasABB(personasABB->izq, idTPersona(maxIzq));
