@@ -289,21 +289,24 @@ TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
         return nueva;
     }
 }
-
-TPersonasLDE aTPersonasLDE(TPersonasABB personasABB)
+TPersonasLDE aux(TPersonasLDE cad, TPersonasABB personasABB)
 {
     if (esVacioTPersonasABB(personasABB))
     {
-        return NULL;
+        return cad;
     }
     else
     {
-        TPersonasLDE nueva = crearTPersonasLDE();
-
-        nueva = aTPersonasLDE(personasABB->izq);
-        insertarTPersonasLDE(nueva, copiarTPersona(personasABB->persona), 1);
-        nueva = aTPersonasLDE(personasABB->der);
-
-        return nueva;
+        cad = aux(cad, personasABB->izq);
+        insertarTPersonasLDE(cad, copiarTPersona(personasABB->persona), 1);
+        cad = aux(cad, personasABB->der);
+        return cad;
     }
+}
+
+TPersonasLDE aTPersonasLDE(TPersonasABB personasABB)
+{
+    TPersonasLDE cad = crearTPersonasLDE();
+    cad = aux(cad, personasABB);
+    return cad;
 }
