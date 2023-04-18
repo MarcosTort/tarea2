@@ -55,8 +55,8 @@ void imprimirTPersonasABB(TPersonasABB personasABB)
 {
     if (!esVacioTPersonasABB(personasABB))
     {
-        imprimirTPersona(personasABB->persona);
         imprimirTPersonasABB(personasABB->izq);
+        imprimirTPersona(personasABB->persona);
         imprimirTPersonasABB(personasABB->der);
     }
 }
