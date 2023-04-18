@@ -121,9 +121,9 @@ void removerTPersonasABB(TPersonasABB &personasABB, nat id)
             }
             else
             {
-                
-                TPersona maxIzq =  maxIdPersona(personasABB->izq);
-                
+
+                TPersona maxIzq = maxIdPersona(personasABB->izq);
+
                 liberarTPersona(personasABB->persona);
                 personasABB->persona = copiarTPersona(maxIzq);
                 removerTPersonasABB(personasABB->izq, idTPersona(maxIzq));
@@ -220,7 +220,38 @@ bool esPerfectoTPersonasABB(TPersonasABB personasABB)
 
 TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
 {
-    return NULL;
+    if (esVacioTPersonasABB(personasABB))
+    {
+        return NULL;
+    }
+    else
+    {
+        TPersonasABB nueva = new rep_personasAbb;
+        TPersonasABB mayoresIzq = mayoresTPersonasABB(personasABB->izq, edad);
+        TPersonasABB mayoresDer = mayoresTPersonasABB(personasABB->der, edad);
+        if (edadTPersona(personasABB->persona) > edad)
+        {
+            nueva->persona = copiarTPersona(personasABB->persona);
+            nueva->der = mayoresIzq;
+            nueva->izq = mayoresDer;
+        }
+        else
+        {
+            if (mayoresDer == NULL)
+            {
+                nueva = mayoresIzq;
+            }
+            else if (mayoresIzq == NULL)
+            {
+                nueva = mayoresDer;
+            }
+            else
+            {
+                return NULL;
+            }
+        }
+        return nueva;
+    }
 }
 
 TPersonasLDE aTPersonasLDE(TPersonasABB personasABB)
