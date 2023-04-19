@@ -303,7 +303,7 @@ TPersonasLDE aux(TPersonasLDE cad, TPersonasABB personasABB)
     }
     else
     {
-        nat cant = cantidadTPersonasABB(personasABB);
+        nat cant = cantidadTPersonasLDE(cad);
         cad = aux(cad, personasABB->izq);
         insertarTPersonasLDE(cad, copiarTPersona(personasABB->persona), cant + 1);
         cad = aux(cad, personasABB->der);
