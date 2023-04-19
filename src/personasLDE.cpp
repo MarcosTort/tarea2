@@ -153,18 +153,18 @@ void eliminarFinalTPersonasLDE(TPersonasLDE &personas)
         if (a_borrar == personas->inicio)
         {
 
-            liberarTPersona(a_borrar->persona);
-            delete a_borrar;
             personas->fin = NULL;
             personas->inicio = NULL;
+            liberarTPersona(a_borrar->persona);
+            delete a_borrar;
         }
         else
         {
 
-            liberarTPersona(a_borrar->persona);
-            delete a_borrar;
             personas->fin = a_borrar->anterior;
             a_borrar->anterior->siguiente = NULL;
+            liberarTPersona(a_borrar->persona);
+            delete a_borrar;
         }
     }
 }
