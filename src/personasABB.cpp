@@ -268,7 +268,7 @@ TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
         if (edadTPersona(personasABB->persona) > edad)
         {
             nueva->persona = copiarTPersona(personasABB->persona);
-            nueva->der =  mayoresDer;
+            nueva->der = mayoresDer;
             nueva->izq = mayoresIzq;
         }
         else
@@ -283,9 +283,10 @@ TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
             }
             else
             {
-                return nueva;
+                nueva = NULL;
             }
         }
+        nueva = NULL;
         return nueva;
     }
 }
