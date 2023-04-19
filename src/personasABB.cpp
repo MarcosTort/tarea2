@@ -262,32 +262,39 @@ TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
     }
     else
     {
-        TPersonasABB nueva = new rep_personasAbb;
         TPersonasABB mayoresIzq = mayoresTPersonasABB(personasABB->izq, edad);
         TPersonasABB mayoresDer = mayoresTPersonasABB(personasABB->der, edad);
         if (edadTPersona(personasABB->persona) > edad)
         {
+            TPersonasABB nueva = new rep_personasAbb;
+
             nueva->persona = copiarTPersona(personasABB->persona);
             nueva->der = mayoresDer;
             nueva->izq = mayoresIzq;
+            return nueva;
         }
         else
         {
+
             if (mayoresDer == NULL)
             {
+                TPersonasABB nueva = new rep_personasAbb;
+
                 nueva = mayoresIzq;
+                return nueva;
             }
             else if (mayoresIzq == NULL)
             {
+                TPersonasABB nueva = new rep_personasAbb;
+
                 nueva = mayoresDer;
+                return nueva;
             }
             else
             {
-                nueva = NULL;
+                return NULL;
             }
         }
-        nueva = NULL;
-        return nueva;
     }
 }
 TPersonasLDE aux(TPersonasLDE cad, TPersonasABB personasABB)
