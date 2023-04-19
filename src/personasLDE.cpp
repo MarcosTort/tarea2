@@ -199,12 +199,28 @@ TPersona obtenerDeTPersonasLDE(TPersonasLDE personas, nat id)
 
 TPersonasLDE concatenarTPersonasLDE(TPersonasLDE personas1, TPersonasLDE personas2)
 {
-    TPersonasLDE personas = new rep_personasLDE;
-
-    personas->inicio = personas1->inicio;
-    personas->fin = personas2->fin;
+    TPersonasLDE personas = crearTPersonasLDE();
+    if (personas1->inicio != NULL && personas2->inicio != NULL)
+    {
+        personas->inicio = personas1->inicio;
+        personas->fin = personas2->fin;
+        personas1->fin->siguiente = personas2->inicio;
+        personas2->inicio->anterior = personas1->fin;
+    }
+    else
+    {
+        if (personas1->inicio != NULL)
+        {
+            personas->inicio = personas1->inicio;
+            personas->fin = personas1->fin;
+        }
+        else
+        {
+            personas->inicio = personas2->inicio;
+            personas->fin = personas2->fin;
+        }
+    }
     delete personas1;
     delete personas2;
-
     return personas;
 }
