@@ -256,18 +256,19 @@ bool esPerfectoTPersonasABB(TPersonasABB personasABB)
 // }
 TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
 {
-    if (esVacioTPersonasABB(personasABB))
+    if (esVacioTPersonasABB(personasABB) )
     {
         return NULL;
     }
     else
     {
+        TPersonasABB nueva;
+
         TPersonasABB mayoresIzq = mayoresTPersonasABB(personasABB->izq, edad);
         TPersonasABB mayoresDer = mayoresTPersonasABB(personasABB->der, edad);
         if (edadTPersona(personasABB->persona) > edad)
         {
-            TPersonasABB nueva = new rep_personasAbb;
-
+            nueva = new rep_personasAbb;
             nueva->persona = copiarTPersona(personasABB->persona);
             nueva->der = mayoresDer;
             nueva->izq = mayoresIzq;
@@ -278,15 +279,12 @@ TPersonasABB mayoresTPersonasABB(TPersonasABB personasABB, nat edad)
 
             if (mayoresDer == NULL)
             {
-                TPersonasABB nueva = new rep_personasAbb;
 
                 nueva = mayoresIzq;
                 return nueva;
             }
             else if (mayoresIzq == NULL)
             {
-                TPersonasABB nueva = new rep_personasAbb;
-
                 nueva = mayoresDer;
                 return nueva;
             }
