@@ -78,10 +78,6 @@ void insertarTPersonasLDE(TPersonasLDE &personas, TPersona persona, nat pos)
             nuevo->anterior = NULL;
         }
     }
-    if (personas->fin == NULL)
-    {
-        personas->fin = nuevo;
-    }
 }
 
 void liberarTPersonasLDE(TPersonasLDE &personasLDE)
