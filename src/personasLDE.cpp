@@ -27,7 +27,7 @@ void insertarTPersonasLDE(TPersonasLDE &personas, TPersona persona, nat pos)
     nuevo->persona = persona;
 
     if (pos == 1)
-    {
+    { // insertar al inicio de la lista vacia
         if (personas->inicio == NULL)
         {
             personas->inicio = nuevo;
@@ -37,6 +37,7 @@ void insertarTPersonasLDE(TPersonasLDE &personas, TPersona persona, nat pos)
         }
         else
         {
+            // insertar al inicio de la lista no vacia
             nuevo->siguiente = personas->inicio;
             personas->inicio->anterior = nuevo;
             nuevo->anterior = NULL;
@@ -45,10 +46,13 @@ void insertarTPersonasLDE(TPersonasLDE &personas, TPersona persona, nat pos)
     }
     else
     {
+        // insertar la persona despues del inicio
         Nodo aux = personas->inicio;
         if (aux != NULL)
         {
+            // buscar la posicion
             nat i = 1;
+
             while (aux->siguiente != NULL && pos >= i)
             {
                 aux = aux->siguiente;
@@ -62,7 +66,9 @@ void insertarTPersonasLDE(TPersonasLDE &personas, TPersona persona, nat pos)
                 personas->fin = nuevo;
                 nuevo->siguiente = NULL;
             }
+            // insertar en la posicion
             else
+
             {
                 nuevo->anterior = aux->anterior;
                 aux->anterior->siguiente = nuevo;
@@ -70,7 +76,9 @@ void insertarTPersonasLDE(TPersonasLDE &personas, TPersona persona, nat pos)
                 aux->anterior = nuevo;
             }
         }
+        // insertar al inicio de la lista vacia
         else
+
         {
             personas->inicio = nuevo;
             personas->fin = nuevo;
